@@ -193,7 +193,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>📄 Policy Index Rubric: Structured Evaluation Template</h1>
+        <h1>📄 Policy Index Rubric: Evaluation Template</h1>
         
         <div class="header-section">
             <div class="header-field">
@@ -457,7 +457,90 @@
         </table>
 
         <div class="definitions">
-            <h3>Performance Level Definitions:</h3>
+            <h3>Policy Index Rubrics</h3>
+            <p>Each policy group/category is evaluated using this 4-level rubric, linked to both <strong>scores</strong> and <strong>color codes</strong> from the Policy Index system.</p>
+            
+            <table style="margin: 20px 0; font-size: 14px;">
+                <thead>
+                    <tr>
+                        <th style="width: 120px;">Level</th>
+                        <th style="width: 100px;">Score Range (% of Max)</th>
+                        <th style="width: 100px;">Color Code</th>
+                        <th style="width: 200px;">Performance Description</th>
+                        <th>Expectations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold;">Level 1: Emerging</td>
+                        <td style="text-align: center;">0–30%</td>
+                        <td style="text-align: center;">❌ No Color</td>
+                        <td><strong>Minimal implementation.</strong> Very few policies are in place. Likely in early development or unaware of best practices.</td>
+                        <td>Identify gaps. Initiate policy drafting. Seek guidance from higher-performing libraries.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Level 2: Developing</td>
+                        <td style="text-align: center;">31–49%</td>
+                        <td style="text-align: center;">🟧 Orange</td>
+                        <td><strong>Partial implementation.</strong> Some policy efforts exist but lack consistency or depth.</td>
+                        <td>Formalize more policies. Standardize processes. Focus on staff awareness and documentation.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Level 3: Proficient</td>
+                        <td style="text-align: center;">50–79%</td>
+                        <td style="text-align: center;">🔵 Blue</td>
+                        <td><strong>Substantial implementation.</strong> Most core policies are active and documented. Some areas may still need work.</td>
+                        <td>Conduct regular reviews. Start measuring impact. Engage users and staff in feedback.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold;">Level 4: Advanced</td>
+                        <td style="text-align: center;">80–100%</td>
+                        <td style="text-align: center;">🟢 Green</td>
+                        <td><strong>Comprehensive implementation.</strong> All critical policies are active, monitored, and aligned with institutional goals.</td>
+                        <td>Maintain quality. Benchmark with national standards. Innovate and share best practices.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Rubric Application for Each Category</h4>
+            <p>When filling out the Policy Index template:</p>
+            <ol>
+                <li><strong>Calculate the % Score for each category:</strong><br>
+                    <div style="background-color: #f0f8ff; padding: 15px; margin: 10px 0; border-left: 4px solid #3498db; font-family: monospace;">
+                        Score % = (Number of Checkboxes Ticked / Maximum Possible Checkboxes) × 100
+                    </div>
+                    <div style="background-color: #fff9e6; padding: 15px; margin: 10px 0; border-left: 4px solid #f39c12;">
+                        <strong>Policy Index (Pi) Calculation Examples:</strong><br>
+                        • <strong>Information Resources Collection & Development:</strong> Pi = ___/20 (Max: 20 policies)<br>
+                        • <strong>Information Resources Management & Optimization:</strong> Pi = ___/7 (Max: 7 policies)<br>
+                        • <strong>Information Resource Sharing:</strong> Pi = ___/5 (Max: 5 policies)<br>
+                        • <strong>Recruitment and Promotion:</strong> Pi = ___/9 (Max: 9 policies)<br>
+                        • <strong>Staff Development & Skill Enhancement:</strong> Pi = ___/11 (Max: 11 policies)<br>
+                        • <strong>Traditional Library Services:</strong> Pi = ___/10 (Max: 10 policies)<br>
+                        <br>
+                        <strong>Section Totals:</strong><br>
+                        • <strong>PIR (Policy Implementation Resources):</strong> Total Pi = ___/32<br>
+                        • <strong>PLPS (Personnel & Library Professional Services):</strong> Total Pi = ___/20<br>
+                        • <strong>PUS (Policy User Services):</strong> Total Pi = ___/__ (varies by subcategory)<br>
+                        • <strong>PLS (Policy Library Space):</strong> Total Pi = ___/21<br>
+                        • <strong>HEPL (High-End Policy Level):</strong> Total Pi = ___/25<br>
+                    </div>
+                    <div style="background-color: #e8f5e8; padding: 15px; margin: 10px 0; border-left: 4px solid #27ae60;">
+                        <strong>Example Calculation:</strong><br>
+                        If your library has implemented 16 out of 20 policies for "Information Resources Collection & Development":<br>
+                        Score % = (16/20) × 100 = 80% → <strong>Level 4: Advanced</strong> 🟢 Green
+                    </div>
+                </li>
+                <li><strong>Use the Rubric to assign:</strong>
+                    <ul>
+                        <li>A Performance Level (1 to 4)</li>
+                        <li>A Color Code</li>
+                        <li>A Short Narrative Remark (optional)</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h4>Original Performance Level Definitions:</h4>
             <ul>
                 <li><strong>Advanced Implementation (80–100%):</strong> The library has fully implemented the policies in this domain, demonstrating best practices and continuous improvement.</li>
                 <li><strong>Substantial Implementation (50–79%):</strong> The library has implemented most policies in this domain, with minor areas needing enhancement.</li>
@@ -482,7 +565,7 @@
             </div>
         </div>
 
-        <button class="print-button" onclick="window.print()">🖨️ Print Form</button>
+        <button class="print-button" onclick="downloadPDF()">📥 Download PDF</button>
         <button class="save-button" onclick="saveForm()">💾 Save as HTML</button>
     </div>
 
@@ -499,6 +582,10 @@
                 }
             });
         });
+
+        function downloadPDF() {
+            window.print();
+        }
 
         function saveForm() {
             const htmlContent = document.documentElement.outerHTML;
