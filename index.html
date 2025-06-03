@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Policy Index Rubric: Evaluation Template</title>
+    <title>Policy Assessment Rubric</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.4;
@@ -23,7 +23,7 @@
             color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
-            font-size: 24px;
+            font-size: 26px;
         }
         .header-section {
             background-color: #f8f9fa;
@@ -58,36 +58,45 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 25px;
-            font-size: 12px;
+            font-size: 14px;
         }
         th {
             background-color: #34495e;
             color: white;
-            padding: 12px 8px;
+            padding: 15px 10px;
             text-align: center;
             font-weight: bold;
             border: 1px solid #2c3e50;
         }
         td {
             border: 1px solid #ddd;
-            padding: 10px 8px;
+            padding: 12px 10px;
             vertical-align: top;
         }
         .policy-name {
             font-weight: bold;
             background-color: #f8f9fa;
-            width: 200px;
+            width: 300px;
         }
         .checkbox-cell {
             text-align: center;
-            width: 80px;
+            width: 140px;
         }
-        .checkbox-cell input[type="checkbox"] {
-            transform: scale(1.2);
-            margin: 2px;
+        .policy-input {
+            width: 60px;
+            padding: 5px;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .policy-input:focus {
+            border-color: #3498db;
+            outline: none;
         }
         .notes-cell {
-            width: 150px;
+            width: 300px;
         }
         .notes-cell textarea {
             width: 100%;
@@ -95,44 +104,55 @@
             border: 1px solid #ddd;
             padding: 5px;
             resize: vertical;
-            font-size: 11px;
+            font-size: 12px;
         }
-        .risks-cell {
-            width: 150px;
-        }
-        .risks-cell textarea {
-            width: 100%;
-            height: 60px;
-            border: 1px solid #ddd;
-            padding: 5px;
-            resize: vertical;
-            font-size: 11px;
-        }
-        .definitions {
-            background-color: #f8f9fa;
+        .calculator-section {
+            background-color: #e8f5e8;
             padding: 20px;
             border-radius: 6px;
             margin: 25px 0;
+            border: 2px solid #27ae60;
         }
-        .definitions h3 {
+        .calculation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+        .calc-input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+            font-size: 16px;
+        }
+        .result-display {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .pi-score {
+            font-size: 36px;
+            font-weight: bold;
             color: #2c3e50;
-            margin-top: 0;
+            margin: 10px 0;
         }
-        .definitions ul {
-            padding-left: 20px;
-        }
-        .definitions li {
-            margin-bottom: 10px;
+        .color-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 18px;
+            margin: 10px 0;
         }
         .summary-section {
             background-color: #f8f9fa;
             padding: 20px;
             border-radius: 6px;
             margin-top: 25px;
-        }
-        .summary-section h3 {
-            color: #2c3e50;
-            margin-top: 0;
         }
         .summary-field {
             margin-bottom: 20px;
@@ -160,9 +180,6 @@
             font-size: 16px;
             margin: 20px 10px 0 0;
         }
-        .print-button:hover {
-            background-color: #2980b9;
-        }
         .save-button {
             background-color: #27ae60;
             color: white;
@@ -173,27 +190,26 @@
             font-size: 16px;
             margin: 20px 10px 0 0;
         }
-        .save-button:hover {
-            background-color: #219a52;
+        .auto-calc-button {
+            background-color: #9b59b6;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 20px 10px 0 0;
         }
         @media print {
-            body {
-                background-color: white;
-                padding: 0;
-            }
-            .container {
-                box-shadow: none;
-                padding: 0;
-            }
-            .print-button, .save-button {
-                display: none;
-            }
+            body { background-color: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; }
+            .print-button, .save-button, .auto-calc-button { display: none; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>📄 Policy Index Rubric: Evaluation Template</h1>
+        <h1>📊 Policy Implementation Assessment Tool</h1>
         
         <div class="header-section">
             <div class="header-field">
@@ -201,387 +217,396 @@
                 <input type="text" id="libraryName" placeholder="Enter library name">
             </div>
             <div class="header-field">
-                <label>Review Date:</label>
-                <input type="date" id="reviewDate">
+                <label>Assessment Date:</label>
+                <input type="date" id="assessmentDate">
             </div>
             <div class="header-field">
-                <label>Reviewer Name:</label>
-                <input type="text" id="reviewerName" placeholder="Enter reviewer name">
+                <label>Assessor Name:</label>
+                <input type="text" id="assessorName" placeholder="Enter assessor name">
             </div>
         </div>
 
         <div class="instructions">
-            <strong>Instructions:</strong> For each policy domain listed below, assess the library's implementation level by selecting the appropriate category. Use the "Notes" section to provide context, observations, or specific examples. The "Risks & Recommendations" section should capture potential areas of concern and suggest actionable steps for improvement.
+            <strong>Instructions:</strong> For each policy domain, enter the <strong>exact number of policies</strong> your library has fully implemented. For example, if you have implemented 4 out of 8 Literature Review Service policies, enter "4". The system will automatically calculate your Policy Index (Pi) and assign the appropriate library color code based on your total implementation level.
         </div>
 
-        <h3>Policy Domain Evaluation Table</h3>
+        <h3>Policy Implementation Assessment</h3>
         <table>
             <thead>
                 <tr>
                     <th>Policy Domain</th>
-                    <th>Advanced Implementation<br>(80–100%)</th>
-                    <th>Substantial Implementation<br>(50–79%)</th>
-                    <th>Moderate Implementation<br>(31–49%)</th>
-                    <th>Minimal Implementation<br>(0–30%)</th>
-                    <th>Notes</th>
-                    <th>Risks & Recommendations</th>
+                    <th>Policies Implemented</th>
+                    <th>Notes & Evidence</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="policyTableBody">
                 <tr>
-                    <td class="policy-name">1. Information Resources Collection & Development</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy1" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy1" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy1" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy1" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">1. Information Resources Collection & Development<br><small>(Maximum: 20 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="20" min="0" max="20" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 20</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">2. Information Resources Management & Optimization</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy2" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy2" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy2" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy2" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">2. Information Resources Management & Optimization<br><small>(Maximum: 7 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="7" min="0" max="7" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 7</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">3. Information Resource Sharing</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy3" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy3" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy3" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy3" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">3. Information Resource Sharing<br><small>(Maximum: 5 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="5" min="0" max="5" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 5</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">4. Recruitment and Promotion</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy4" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy4" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy4" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy4" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">4. Recruitment and Promotion<br><small>(Maximum: 9 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="9" min="0" max="9" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 9</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">5. Staff Development & Skill Enhancement</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy5" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy5" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy5" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy5" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">5. Staff Development & Skill Enhancement<br><small>(Maximum: 11 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="11" min="0" max="11" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 11</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">6. Traditional Library Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy6" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy6" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy6" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy6" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">6. Traditional Library Services<br><small>(Maximum: 10 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="10" min="0" max="10" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 10</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">7. Literature Review Service</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy7" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy7" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy7" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy7" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">7. Literature Review Service<br><small>(Maximum: 8 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="8" min="0" max="8" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 8</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">8. Ethical & Fair Use of Information Resources</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy8" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy8" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy8" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy8" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">8. Ethical & Fair Use of Information Resources<br><small>(Maximum: 6 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="6" min="0" max="6" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 6</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">9. Ask a Librarian Service</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy9" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy9" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy9" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy9" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">9. Ask a Librarian Service<br><small>(Maximum: 9 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="9" min="0" max="9" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 9</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">10. Information Literacy</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy10" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy10" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy10" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy10" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">10. Information Literacy<br><small>(Maximum: 12 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="12" min="0" max="12" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 12</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">11. Research Writing Support & Faculty Program Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy11" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy11" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy11" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy11" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">11. Research Writing Support & Faculty Program Services<br><small>(Maximum: 15 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="15" min="0" max="15" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 15</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">12. Scholarship Portal Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy12" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy12" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy12" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy12" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">12. Scholarship Portal Services<br><small>(Maximum: 13 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="13" min="0" max="13" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 13</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">13. Research Visibility</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy13" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy13" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy13" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy13" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">13. Research Visibility<br><small>(Maximum: 11 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="11" min="0" max="11" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 11</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">14. Cloud Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy14" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy14" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy14" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy14" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">14. Cloud Services<br><small>(Maximum: 8 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="8" min="0" max="8" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 8</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">15. Tools & Equipment Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy15" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy15" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy15" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy15" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">15. Tools & Equipment Services<br><small>(Maximum: 7 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="7" min="0" max="7" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 7</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">16. Information Analytical Services</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy16" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy16" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy16" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy16" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">16. Information Analytical Services<br><small>(Maximum: 9 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="9" min="0" max="9" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 9</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">17. Community Engagement & Outreach</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy17" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy17" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy17" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy17" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">17. Community Engagement & Outreach<br><small>(Maximum: 10 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="10" min="0" max="10" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 10</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">18. User Evaluation Service</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy18" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy18" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy18" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy18" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">18. User Evaluation Service<br><small>(Maximum: 6 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="6" min="0" max="6" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 6</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">19. User Publication Service</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy19" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy19" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy19" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy19" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">19. User Publication Service<br><small>(Maximum: 8 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="8" min="0" max="8" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 8</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">20. Green Library Initiatives</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy20" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy20" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy20" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy20" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">20. Green Library Initiatives<br><small>(Maximum: 12 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="12" min="0" max="12" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 12</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">21. Space for Information Resource Collection</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy21" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy21" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy21" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy21" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">21. Space for Information Resource Collection<br><small>(Maximum: 9 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="9" min="0" max="9" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 9</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">22. Space for Users (Design & Convenience)</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy22" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy22" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy22" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy22" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">22. Space for Users (Design & Convenience)<br><small>(Maximum: 12 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="12" min="0" max="12" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 12</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">23. Disaster Management</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy23" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy23" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy23" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy23" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">23. Disaster Management<br><small>(Maximum: 14 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="14" min="0" max="14" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 14</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">24. Advocacy</td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy24" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy24" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy24" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy24" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">24. Advocacy<br><small>(Maximum: 7 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="7" min="0" max="7" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 7</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
                 <tr>
-                    <td class="policy-name">25. Higher Education Policy in Library </td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy25" value="advanced"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy25" value="substantial"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy25" value="moderate"></td>
-                    <td class="checkbox-cell"><input type="checkbox" name="policy25" value="minimal"></td>
-                    <td class="notes-cell"><textarea placeholder="Enter notes..."></textarea></td>
-                    <td class="risks-cell"><textarea placeholder="Enter risks & recommendations..."></textarea></td>
+                    <td class="policy-name">25. Higher Education Policy in Library<br><small>(Maximum: 18 policies)</small></td>
+                    <td class="checkbox-cell">
+                        <input type="number" class="policy-input" data-max="18" min="0" max="18" value="0" onchange="calculatePolicyIndex()" placeholder="0">
+                        <small>/ 18</small>
+                    </td>
+                    <td class="notes-cell"><textarea placeholder="Enter evidence of implementation..."></textarea></td>
                 </tr>
             </tbody>
         </table>
 
-        <div class="definitions">
-            <h3>Policy Index Rubrics</h3>
-            <p>Each policy group/category is evaluated using this 4-level rubric, linked to both <strong>scores</strong> and <strong>color codes</strong> from the Policy Index system.</p>
+        <div class="calculator-section">
+            <h3>🧮 Policy Index Calculator</h3>
             
-            <table style="margin: 20px 0; font-size: 14px;">
-                <thead>
-                    <tr>
-                        <th style="width: 120px;">Level</th>
-                        <th style="width: 100px;">Score Range (% of Max)</th>
-                        <th style="width: 100px;">Color Code</th>
-                        <th style="width: 200px;">Performance Description</th>
-                        <th>Expectations</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="font-weight: bold;">Level 1: Emerging</td>
-                        <td style="text-align: center;">0–30%</td>
-                        <td style="text-align: center;">❌ No Color</td>
-                        <td><strong>Minimal implementation.</strong> Very few policies are in place. Likely in early development or unaware of best practices.</td>
-                        <td>Identify gaps. Initiate policy drafting. Seek guidance from higher-performing libraries.</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;">Level 2: Developing</td>
-                        <td style="text-align: center;">31–49%</td>
-                        <td style="text-align: center;">🟧 Orange</td>
-                        <td><strong>Partial implementation.</strong> Some policy efforts exist but lack consistency or depth.</td>
-                        <td>Formalize more policies. Standardize processes. Focus on staff awareness and documentation.</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;">Level 3: Proficient</td>
-                        <td style="text-align: center;">50–79%</td>
-                        <td style="text-align: center;">🔵 Blue</td>
-                        <td><strong>Substantial implementation.</strong> Most core policies are active and documented. Some areas may still need work.</td>
-                        <td>Conduct regular reviews. Start measuring impact. Engage users and staff in feedback.</td>
-                    </tr>
-                    <tr>
-                        <td style="font-weight: bold;">Level 4: Advanced</td>
-                        <td style="text-align: center;">80–100%</td>
-                        <td style="text-align: center;">🟢 Green</td>
-                        <td><strong>Comprehensive implementation.</strong> All critical policies are active, monitored, and aligned with institutional goals.</td>
-                        <td>Maintain quality. Benchmark with national standards. Innovate and share best practices.</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4>Rubric Application for Each Category</h4>
-            <p>When filling out the Policy Index template:</p>
-            <ol>
-                <li><strong>Calculate the % Score for each category:</strong><br>
-                    <div style="background-color: #f0f8ff; padding: 15px; margin: 10px 0; border-left: 4px solid #3498db; font-family: monospace;">
-                        Score % = (Number of Checkboxes Ticked / Maximum Possible Checkboxes) × 100
-                    </div>
-                    <div style="background-color: #fff9e6; padding: 15px; margin: 10px 0; border-left: 4px solid #f39c12;">
-                        <strong>Policy Index (Pi) Calculation Examples:</strong><br>
-                        • <strong>Information Resources Collection & Development:</strong> Pi = ___/20 (Max: 20 policies)<br>
-                        • <strong>Information Resources Management & Optimization:</strong> Pi = ___/7 (Max: 7 policies)<br>
-                        • <strong>Information Resource Sharing:</strong> Pi = ___/5 (Max: 5 policies)<br>
-                        • <strong>Recruitment and Promotion:</strong> Pi = ___/9 (Max: 9 policies)<br>
-                        • <strong>Staff Development & Skill Enhancement:</strong> Pi = ___/11 (Max: 11 policies)<br>
-                        • <strong>Traditional Library Services:</strong> Pi = ___/10 (Max: 10 policies)<br>
-                        <br>
-                        <strong>Section Totals:</strong><br>
-                        • <strong>PIR (Policy Implementation Resources):</strong> Total Pi = ___/32<br>
-                        • <strong>PLPS (Personnel & Library Professional Services):</strong> Total Pi = ___/20<br>
-                        • <strong>PUS (Policy User Services):</strong> Total Pi = ___/__ (varies by subcategory)<br>
-                        • <strong>PLS (Policy Library Space):</strong> Total Pi = ___/21<br>
-                        • <strong>HEPL (High-End Policy Level):</strong> Total Pi = ___/25<br>
-                    </div>
-                    <div style="background-color: #e8f5e8; padding: 15px; margin: 10px 0; border-left: 4px solid #27ae60;">
-                        <strong>Example Calculation:</strong><br>
-                        If your library has implemented 16 out of 20 policies for "Information Resources Collection & Development":<br>
-                        Score % = (16/20) × 100 = 80% → <strong>Level 4: Advanced</strong> 🟢 Green
-                    </div>
-                </li>
-                <li><strong>Use the Rubric to assign:</strong>
-                    <ul>
-                        <li>A Performance Level (1 to 4)</li>
-                        <li>A Color Code</li>
-                        <li>A Short Narrative Remark (optional)</li>
-                    </ul>
-                </li>
-            </ol>
-
-            <h4>Original Performance Level Definitions:</h4>
-            <ul>
-                <li><strong>Advanced Implementation (80–100%):</strong> The library has fully implemented the policies in this domain, demonstrating best practices and continuous improvement.</li>
-                <li><strong>Substantial Implementation (50–79%):</strong> The library has implemented most policies in this domain, with minor areas needing enhancement.</li>
-                <li><strong>Moderate Implementation (31–49%):</strong> The library has implemented some policies in this domain but requires significant improvements.</li>
-                <li><strong>Minimal Implementation (0–30%):</strong> The library has implemented few or no policies in this domain, indicating a need for immediate attention.</li>
-            </ul>
+            <div style="margin-bottom: 15px; text-align: center;">
+                <button onclick="clearAll()" style="background-color: #e74c3c; color: white; padding: 8px 16px; border: none; border-radius: 4px; margin: 0 5px; cursor: pointer;">Clear All</button>
+            </div>
+            
+            <div class="result-display">
+                <h4>Current Policy Index (Pi)</h4>
+                <div class="pi-score" id="totalPiScore">0</div>
+                <div>out of 256 possible policies</div>
+                
+                <h4>Color Code Percentage (CCP)</h4>
+                <div class="pi-score" id="ccpScore">0%</div>
+                
+                <div class="color-badge" id="colorCode" style="background-color: #95a5a6; color: white;">⚫ No Color</div>
+                <div id="colorDescription">No policies implemented</div>
+            </div>
         </div>
 
         <div class="summary-section">
-            <h3>Summary and Recommendations:</h3>
+            <h3>📋 Assessment Summary</h3>
             <div class="summary-field">
-                <label>Overall Assessment:</label>
-                <textarea placeholder="Based on the evaluations above, provide a summary of the library's policy implementation status."></textarea>
+                <label>Implementation Summary:</label>
+                <textarea id="implementationSummary" placeholder="Automatic summary will be generated based on your selections..."></textarea>
             </div>
             <div class="summary-field">
-                <label>Key Strengths:</label>
-                <textarea placeholder="Highlight domains where the library excels."></textarea>
-            </div>
-            <div class="summary-field">
-                <label>Areas for Improvement:</label>
-                <textarea placeholder="Identify domains requiring attention and suggest specific actions."></textarea>
+                <label>Recommendations for Improvement:</label>
+                <textarea id="recommendations" placeholder="Automatic recommendations will be generated..."></textarea>
             </div>
         </div>
 
         <button class="print-button" onclick="downloadPDF()">📥 Download PDF</button>
-        <button class="save-button" onclick="saveForm()">💾 Save as HTML</button>
+        <button class="save-button" onclick="saveForm()">💾 Save Assessment</button>
+        <button class="auto-calc-button" onclick="openAdvancedCalculator()">🔧 Advanced Calculator</button>
     </div>
 
     <script>
-        // Make checkboxes work as radio buttons within each row
-        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    // Uncheck other checkboxes in the same row
-                    const rowCheckboxes = document.querySelectorAll(`input[name="${this.name}"]`);
-                    rowCheckboxes.forEach(cb => {
-                        if (cb !== this) cb.checked = false;
-                    });
+        let totalPolicies = 256;
+        let implementedPolicies = 0;
+
+        function calculatePolicyIndex() {
+            implementedPolicies = 0;
+            
+            // Count all implemented policies from number inputs
+            document.querySelectorAll('.policy-input').forEach(input => {
+                const value = parseInt(input.value) || 0;
+                const max = parseInt(input.getAttribute('data-max'));
+                
+                // Ensure value doesn't exceed maximum
+                if (value > max) {
+                    input.value = max;
+                    implementedPolicies += max;
+                } else {
+                    implementedPolicies += value;
                 }
             });
-        });
+            
+            // Calculate CCP
+            const ccp = (implementedPolicies / totalPolicies) * 100;
+            
+            // Update display
+            document.getElementById('totalPiScore').textContent = implementedPolicies;
+            document.getElementById('ccpScore').textContent = `${ccp.toFixed(1)}%`;
+            
+            // Determine color code
+            const colorData = getColorCode(ccp);
+            const colorElement = document.getElementById('colorCode');
+            colorElement.textContent = colorData.code;
+            colorElement.style.backgroundColor = colorData.bgColor;
+            colorElement.style.color = colorData.textColor;
+            document.getElementById('colorDescription').textContent = colorData.description;
+            
+            // Generate automatic summary and recommendations
+            generateSummary(ccp, implementedPolicies);
+        }
+
+        function getColorCode(ccp) {
+            if (ccp >= 75) {
+                return {
+                    code: "🥇 Golden",
+                    description: "Exemplary policy implementation",
+                    bgColor: "#FFD700",
+                    textColor: "black"
+                };
+            } else if (ccp >= 50) {
+                return {
+                    code: "🥈 Silver",
+                    description: "Strong policy implementation",
+                    bgColor: "#C0C0C0",
+                    textColor: "black"
+                };
+            } else if (ccp >= 26) {
+                return {
+                    code: "🟢 Green",
+                    description: "Moderate policy implementation",
+                    bgColor: "#27ae60",
+                    textColor: "white"
+                };
+            } else if (ccp >= 1) {
+                return {
+                    code: "🔵 Blue",
+                    description: "Basic policy implementation",
+                    bgColor: "#3498db",
+                    textColor: "white"
+                };
+            } else {
+                return {
+                    code: "⚫ No Color",
+                    description: "No policies implemented",
+                    bgColor: "#95a5a6",
+                    textColor: "white"
+                };
+            }
+        }
+
+        function generateSummary(ccp, implemented) {
+            const missing = totalPolicies - implemented;
+            
+            // Count domains with any implementation
+            const domainsWithPolicies = Array.from(document.querySelectorAll('.policy-input')).filter(input => 
+                parseInt(input.value) > 0
+            ).length;
+            const totalDomains = 25;
+            
+            // Count fully implemented domains
+            const fullyImplementedDomains = Array.from(document.querySelectorAll('.policy-input')).filter(input => {
+                const value = parseInt(input.value) || 0;
+                const max = parseInt(input.getAttribute('data-max'));
+                return value === max;
+            }).length;
+            
+            let summary = `Your library has implemented ${implemented} out of ${totalPolicies} possible policies (${ccp.toFixed(1)}% coverage). You have activities in ${domainsWithPolicies} out of ${totalDomains} policy domains, with ${fullyImplementedDomains} domains fully implemented. `;
+            
+            if (ccp >= 75) {
+                summary += "This represents exemplary performance with comprehensive policy coverage. Your library demonstrates best practices in policy implementation.";
+            } else if (ccp >= 50) {
+                summary += "This represents strong performance with substantial policy coverage. Your library has a solid foundation with room for optimization.";
+            } else if (ccp >= 26) {
+                summary += "This represents moderate performance with basic policy coverage. Your library has foundational policies but requires systematic enhancement.";
+            } else if (ccp >= 1) {
+                summary += "This represents basic performance with limited policy coverage. Your library needs significant policy development.";
+            } else {
+                summary += "No policies have been implemented. Immediate action is required to establish basic governance frameworks.";
+            }
+            
+            document.getElementById('implementationSummary').value = summary;
+            
+            // Generate recommendations
+            let recommendations = "";
+            if (ccp >= 75) {
+                recommendations = "Focus on innovation and continuous improvement. Complete any remaining policies to achieve 100% coverage. Share best practices with other libraries and consider advanced initiatives.";
+            } else if (ccp >= 50) {
+                recommendations = `Implement the remaining ${missing} policies to achieve Golden status. Focus on completing partial implementations and expanding to untouched domains. Prepare for certification maintenance over 5 years.`;
+            } else if (ccp >= 26) {
+                recommendations = `Priority: Add ${missing} more policies across ${totalDomains - domainsWithPolicies} unexplored domains. Focus on completing current partial implementations first, then expand to new areas. Staff training and process standardization needed.`;
+            } else if (ccp >= 1) {
+                recommendations = `Critical: Develop comprehensive policy framework. Focus on completing current implementations and expanding to more domains. Consider external consultation and staff development programs.`;
+            } else {
+                recommendations = "Immediate action required: Start with fundamental governance structures, staff guidelines, and basic user services frameworks.";
+            }
+            
+            document.getElementById('recommendations').value = recommendations;
+        }
 
         function downloadPDF() {
             window.print();
@@ -593,12 +618,26 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'Policy_Index_Rubric_Filled.html';
+            a.download = 'Policy_Assessment_Completed.html';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         }
+
+        function openAdvancedCalculator() {
+            alert('Advanced Calculator: Use the second template for detailed HR analysis, time factors, and comprehensive assessment metrics.');
+        }
+
+        function clearAll() {
+            document.querySelectorAll('.policy-input').forEach(input => {
+                input.value = 0;
+            });
+            calculatePolicyIndex();
+        }
+
+        // Set default date
+        document.getElementById('assessmentDate').value = new Date().toISOString().split('T')[0];
     </script>
 </body>
 </html>
